@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace TrailScale.Domain
 {
@@ -7,10 +8,12 @@ namespace TrailScale.Domain
         public User()
         {
             IsLoggedIn = false;
+            SavedExcursions = new List<Excursion>();
         }
 
         public string Username { get; private set;}
         public bool IsLoggedIn { get; private set;}
+        public List<Excursion> SavedExcursions { get; private set;}
 
         public void Login()
         {
@@ -29,21 +32,50 @@ namespace TrailScale.Domain
             if(IsLoggedIn)
             {
                 var exc = new Excursion();
-                Console.WriteLine("\n____Review Excursion____");
-                Console.WriteLine($"Excursion Title: {exc.Name}");
-                Console.WriteLine($"Start Location: {exc.Rendezvous.StartLocation.Latitude}°,{exc.Rendezvous.StartLocation.Longitude}°");
-                Console.WriteLine($"Projected Distance to Travel: {exc.Rendezvous.TravelDistance} miles");
-                Console.WriteLine($"Allotted Time for Travel: {exc.Rendezvous.TravelDuration} days");
-                Console.Write("\nDoes all look correct?   [Y/n]");
+                exc.GetExcursionDetails();
+                Console.Write("\nDoes all look correct? [Y/N]:  ");
+                Console.ReadLine();
+
+                SavedExcursions.Add(exc);
+                Console.Write($"\n{exc.Name} has been saved to your excursions.\nKey [enter] to continue...");
                 Console.ReadLine();
             }
             else
-            {
-                Console.WriteLine("Please login to use this functionality");
-                Console.Write("Press [enter] to continue.  ");
-            }
+                PleaseLogin();
         }
 
+        public void ReviewExcursions()
+        {
+            if(IsLoggedIn)
+            {
+                string cmd = String.Empty;
+
+                if (SavedExcursions.Count > 0)
+                {
+                    while (cmd != "X")
+                    {
+                        Console.Clear();
+                        Console.WriteLine("\n>>>>> Review Excursions <<<<<");
+                        var li = "[{0}] {1}";
+
+                        for (int i = 0; i < SavedExcursions.Count; i++)
+                        {
+                            Console.WriteLine(String.Format(li, i + 1, SavedExcursions[i].Name));
+                        }
+                        Console.WriteLine(String.Format(li, "X", "Return to Main Menu"));
+                        Console.Write("\nKey your command:  ");
+                        cmd = Console.ReadLine().ToUpper();
+
+                        if(cmd != "X")
+                            SelectSavedExcursion(cmd);
+                    }
+                }
+                else
+                    Continue("No Saved Excursions available.");
+            }
+            else
+                PleaseLogin();
+        }
 
         private void AuthenticateUser(string username, string password)
         {
@@ -52,5 +84,35 @@ namespace TrailScale.Domain
             IsLoggedIn = true;
             Console.WriteLine("Login successful.");
         }
+
+        private void SelectSavedExcursion(string cmd)
+        {
+            int excIdx;
+
+            bool isInt = Int32.TryParse(cmd, out int excLi);
+            excIdx = --excLi;
+
+            if (isInt && excIdx < SavedExcursions.Count)
+            {
+                SavedExcursions[excIdx].GetExcursionDetails();
+                Continue();
+            }
+            else 
+                Continue("Unaccepted command.");
+        }
+
+        #region Prompts
+        private void PleaseLogin()
+        {
+            Continue("Please login to use this functionality");
+        }
+
+        private void Continue(string msg = "")
+        {
+            Console.WriteLine(msg);
+            Console.Write("Press [enter] to continue...");
+            Console.ReadLine();
+        }
+        #endregion
     }
 }

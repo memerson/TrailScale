@@ -25,6 +25,9 @@ namespace TrailScale
                     case "1":
                         _u.CreateNewExcursion();
                         break;
+                    case "2":
+                        _u.ReviewExcursions();
+                        break;
                     case "X":
                         Environment.Exit(0);
                         break;
@@ -44,6 +47,7 @@ namespace TrailScale
             Console.Write("\n\nWhat would you like to do?:\n");
 
             Console.WriteLine("[1] Create New Excursion");
+            Console.WriteLine("[2] Review Saved Excursions");
             Console.WriteLine("[X] Quit Application");
             
             Console.Write("\nKey your command: ");

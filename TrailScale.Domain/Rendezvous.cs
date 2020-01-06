@@ -34,5 +34,12 @@ namespace TrailScale.Domain
             Console.Write("How much time are you alloting for this trip? [days - decimals acceptable] ");
             TravelDuration = double.Parse(Console.ReadLine());
         }
+
+        public void GetRendevousDetails()
+        {
+            Console.WriteLine($"Start Location: {StartLocation.Latitude}°,{StartLocation.Longitude}°");
+            Console.WriteLine($"Projected Distance to Travel: {TravelDistance} miles");
+            Console.WriteLine($"Allotted Time for Travel: {TravelDuration} days");
+        }
     }
 }
