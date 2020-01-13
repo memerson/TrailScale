@@ -8,25 +8,25 @@ namespace TrailScale.Domain
 {
     public class Trip
     {
-        public string name { get; }
-        public Weather weather { get; }
-        public Trail trail { get; }
-        public double pace { get; }
-        public double days { get; }
+        public string Name { get; }
+        public Weather Weather { get; }
+        public Trail Trail { get; }
+        public double Pace { get; }
+        public double Days { get; }
 
 
         public Trip(string tripName, Weather tripWeather, Trail tripTrail)
         {
-            name = tripName;
-            weather = tripWeather;
-            trail = tripTrail;
-            pace = CaculatePace();
-            days = CaculateDays();
+            Name = tripName;
+            Weather = tripWeather;
+            Trail = tripTrail;
+            Pace = CaculatePace();
+            Days = CaculateDays();
         }
 
         protected double CaculateDays()
         {
-            var hours = trail.length / pace;
+            var hours = Trail.Length / Pace;
             var days = hours / 8;
             return days;
         }
@@ -36,17 +36,17 @@ namespace TrailScale.Domain
             double pace = 2.5;
 
 
-            pace *= TempMultiplier(weather);
-            pace *= PrecipitationMultiplier(weather);
+            pace *= TempMultiplier(Weather);
+            pace *= PrecipitationMultiplier(Weather);
 
             return pace;
         }
 
         protected double PrecipitationMultiplier(Weather tripWeather)
         {
-            if (tripWeather.precipitation == Precipitation.Rain)
+            if (tripWeather.Precipitation == Precipitation.Rain)
                 return .5;
-            else if (tripWeather.precipitation == Precipitation.Snow)
+            else if (tripWeather.Precipitation == Precipitation.Snow)
                 return .75;
             else
                 return 1.0;
@@ -54,13 +54,13 @@ namespace TrailScale.Domain
 
         protected double TempMultiplier(Weather tripWeather)
         {
-            if (tripWeather.temperature == Temperature.SubZero)
+            if (tripWeather.Temperature == Temperature.SubZero)
                 return .5;
-            else if (tripWeather.temperature == Temperature.SubFreezingAboveZero)
+            else if (tripWeather.Temperature == Temperature.SubFreezingAboveZero)
                 return 0.75;
-            else if (tripWeather.temperature == Temperature.AboveFreezingAndBelowSeventy)
+            else if (tripWeather.Temperature == Temperature.AboveFreezingAndBelowSeventy)
                 return 1.0;
-            else if (tripWeather.temperature == Temperature.AboveSeventyAndBelowNinety)
+            else if (tripWeather.Temperature == Temperature.AboveSeventyAndBelowNinety)
                 return 0.75;
             else
                 return .5;

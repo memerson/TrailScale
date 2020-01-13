@@ -13,11 +13,11 @@ namespace TrailScale
             var tripManager = new TripManager();
            var trip = tripManager.CreateNewTrip();
             Console.WriteLine("your trip is called");
-            Console.Write(trip.name);
-            Console.WriteLine($"And it will take you {trip.days} days");
-            Console.WriteLine(trip.pace);
+            Console.Write(trip.Name);
+            Console.WriteLine($"And it will take you {trip.Days} days");
+            Console.WriteLine(trip.Pace);
             Console.WriteLine("weather");
-            Console.WriteLine(trip.weather.precipitation);
+            Console.WriteLine(trip.Weather.Precipitation);
             Console.ReadLine();
         }
     }

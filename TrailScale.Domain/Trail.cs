@@ -8,15 +8,15 @@ namespace TrailScale.Domain
 {
    public class Trail
     {
-        public double length { get; }
-        public TrailDifficulty difficulty { get; }
-       public string name { get; }
+        public double Length { get; }
+        public TrailDifficulty Difficulty { get; }
+       public string Name { get; }
 
         public Trail(double trailLength, TrailDifficulty trailDifficulty, string trailName)
         {
-            length = trailLength;
-            difficulty = trailDifficulty;
-            name = trailName;
+            Length = trailLength;
+            Difficulty = trailDifficulty;
+            Name = trailName;
         }
     }
 }

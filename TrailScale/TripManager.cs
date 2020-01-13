@@ -20,16 +20,17 @@ namespace TrailScale
                 1 - Rain
                 2 - Snow
 ");
-            var rainInt = Console.ReadLine();
-            int rainIntInt;
-            int.TryParse(rainInt, out rainIntInt);
-            
+            var consoleRain = Console.ReadLine();
+            int rainInt;
+            int.TryParse(consoleRain, out rainInt);
 
-            var weather = new Weather((Precipitation)rainIntInt, Temperature.AboveFreezingAndBelowSeventy);
+            var weather = new Weather((Precipitation)rainInt, Temperature.AboveFreezingAndBelowSeventy);
             var trail = new Trail(40, TrailDifficulty.Hard, "Hard Trail");
             Trip trip = new Trip(name, weather, trail);
 
             return trip;          
         }
+
+
     }
 }

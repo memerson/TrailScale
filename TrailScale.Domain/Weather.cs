@@ -8,13 +8,13 @@ namespace TrailScale.Domain
 {
     public class Weather
     {
-        public Precipitation precipitation { get; }
-        public Temperature temperature { get; }
+        public Precipitation Precipitation { get; }
+        public Temperature Temperature { get; }
 
         public Weather(Precipitation tripPrecipitation, Temperature temp)
         {
-            precipitation = tripPrecipitation;
-            temperature = temp;
+            Precipitation = tripPrecipitation;
+            Temperature = temp;
 
         }
     }
