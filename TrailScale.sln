@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.438
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrailScale", "TrailScale\TrailScale.csproj", "{7E023A71-249F-4AB0-8535-40FD477FF4E0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrailScale.Domain", "TrailScale.Domain\TrailScale.Domain.csproj", "{A751596A-E25D-4D09-BF99-90F60A9DB117}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrailScale.Domain.Test", "TrailScale.Domain.Test\TrailScale.Domain.Test.csproj", "{108E9A67-1E28-4F3F-B389-FD4CA288EF70}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{A751596A-E25D-4D09-BF99-90F60A9DB117}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A751596A-E25D-4D09-BF99-90F60A9DB117}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A751596A-E25D-4D09-BF99-90F60A9DB117}.Release|Any CPU.Build.0 = Release|Any CPU
+		{108E9A67-1E28-4F3F-B389-FD4CA288EF70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{108E9A67-1E28-4F3F-B389-FD4CA288EF70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{108E9A67-1E28-4F3F-B389-FD4CA288EF70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{108E9A67-1E28-4F3F-B389-FD4CA288EF70}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
