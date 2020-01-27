@@ -8,38 +8,124 @@ namespace TrailScale.Domain.Test
     public class UT_Trip
      {
         #region Properties
-        Weather mWeather;
-        Trip mTrip;
-        Trail mTrail;
 
         #endregion
 
+        #region trail
         [TestMethod]
-        public void ShouldCreateANewTrip()
+        public void ShouldCaculateCorrectNumberOfDaysEasyTrail()
         {
-            GivenATrailObj();
-            GivenAWeatherObj();
-            WhenATripIsCreated();
+            var trail = GivenATrailObj(10, TrailDifficulty.Easy);
+            var weather = GivenAWeatherObj(Precipitation.None, Temperature.AboveFreezingAndBelowSeventy);
+            var trip = WhenATripIsCreated(weather, trail);
+            ThenVerifyDays(.4, trip);
+        }
+        
+        [TestMethod]
+        public void ShouldCaculateCorrectNumberOfDaysMediumTrail()
+        {
+            var trail = GivenATrailObj(10, TrailDifficulty.Medium);
+            var weather = GivenAWeatherObj(Precipitation.None, Temperature.AboveFreezingAndBelowSeventy);
+            var trip = WhenATripIsCreated(weather, trail);
+            ThenVerifyDays(.5, trip);
         }
 
-        public void GivenAWeatherObj()
+        [TestMethod]
+        public void ShouldCaculateCorrectNumberOfDaysHardTrail()
         {
-            mWeather = new Weather(Precipitation.Snow, Temperature.AboveSeventyAndBelowNinety);
+            var trail = GivenATrailObj(10, TrailDifficulty.Hard);
+            var weather = GivenAWeatherObj(Precipitation.None, Temperature.AboveFreezingAndBelowSeventy);
+            var trip = WhenATripIsCreated(weather, trail);
+            ThenVerifyDays(.7, trip);
         }
-        public void GivenATrailObj()
+        #endregion
+        #region precip
+        [TestMethod]
+        public void ShouldCaculateCorrectNumberOfDaysRain()
         {
-            mTrail = new Trail(10.4, TrailDifficulty.Easy, "AwesomeTrail");
+            var trail = GivenATrailObj(10, TrailDifficulty.Medium);
+            var weather = GivenAWeatherObj(Precipitation.Rain, Temperature.AboveFreezingAndBelowSeventy);
+            var trip = WhenATripIsCreated(weather, trail);
+            ThenVerifyDays(1, trip);
         }
 
-        public void WhenATripIsCreated()
+        [TestMethod]
+        public void ShouldCaculateCorrectNumberOfDaysSnow()
         {
-            mTrip = new Trip("TheBestTripEver", mWeather, mTrail);
+            var trail = GivenATrailObj(10, TrailDifficulty.Medium);
+            var weather = GivenAWeatherObj(Precipitation.Snow, Temperature.AboveFreezingAndBelowSeventy);
+            var trip = WhenATripIsCreated(weather, trail);
+            ThenVerifyDays(.7, trip);
+        }
+        #endregion
+        #region Temp
+
+        [TestMethod]
+        public void ShouldCaculateCorrectNumberOfDaysSubZero()
+        {
+            var trail = GivenATrailObj(10, TrailDifficulty.Medium);
+            var weather = GivenAWeatherObj(Precipitation.None, Temperature.SubZero);
+            var trip = WhenATripIsCreated(weather, trail);
+            ThenVerifyDays(1, trip);
         }
 
-        public void ThenATripIsNotNull()
+        [TestMethod]
+        public void ShouldCaculateCorrectNumberOfDaysSubFreezingAboveZero()
         {
-            Assert.IsNotNull(mTrip);
+            var trail = GivenATrailObj(10, TrailDifficulty.Medium);
+            var weather = GivenAWeatherObj(Precipitation.None, Temperature.SubFreezingAboveZero);
+            var trip = WhenATripIsCreated(weather, trail);
+            ThenVerifyDays(.7, trip);
         }
+
+        [TestMethod]
+        public void ShouldCaculateCorrectNumberOfDaysAboveSeventyAndBelowNinety()
+        {
+            var trail = GivenATrailObj(10, TrailDifficulty.Medium);
+            var weather = GivenAWeatherObj(Precipitation.None, Temperature.AboveSeventyAndBelowNinety);
+            var trip = WhenATripIsCreated(weather, trail);
+            ThenVerifyDays(.7, trip);
+        }
+
+        [TestMethod]
+        public void ShouldCaculateCorrectNumberOfDaysAboveNinety()
+        {
+            var trail = GivenATrailObj(10, TrailDifficulty.Medium);
+            var weather = GivenAWeatherObj(Precipitation.None, Temperature.AboveNinety);
+            var trip = WhenATripIsCreated(weather, trail);
+            ThenVerifyDays(1, trip);
+        }
+
+        #endregion
+
+        public void ShouldCaculateCorrectPace()
+        {
+            //TODO: Write this test!
+        }
+
+        public Weather GivenAWeatherObj(Precipitation precip, Temperature temp )
+        {
+            return new Weather(precip, temp);
+        }
+        public Trail GivenATrailObj( double length, TrailDifficulty difficulty)
+        {
+            return new Trail(length, difficulty, "Trail");
+        }
+
+        public Trip WhenATripIsCreated(Weather weather, Trail trail)
+        {
+            return new Trip("TheBestTripEver", weather, trail);
+        }
+
+        public void ThenVerifyDays(double days, Trip trip)
+        {
+            Assert.AreEqual(days, trip.Days);
+        }
+
+
+        #region Helper Methods
+
+        #endregion
     }
 
 }

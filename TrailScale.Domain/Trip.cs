@@ -24,25 +24,27 @@ namespace TrailScale.Domain
             Days = CaculateDays();
         }
 
-        protected double CaculateDays()
+        private double CaculateDays()
         {
             var hours = Trail.Length / Pace;
-            var days = hours / 8;
+            var days = Math.Round((hours / 8),1);
             return days;
         }
 
-        protected double CaculatePace()
+        private double CaculatePace()
         {
+            //TODO: Grab user's default pace from profile
             double pace = 2.5;
 
 
             pace *= TempMultiplier(Weather);
             pace *= PrecipitationMultiplier(Weather);
+            pace *= DifficultyMultiplier(Trail);
 
             return pace;
         }
 
-        protected double PrecipitationMultiplier(Weather tripWeather)
+        private double PrecipitationMultiplier(Weather tripWeather)
         {
             if (tripWeather.Precipitation == Precipitation.Rain)
                 return .5;
@@ -52,7 +54,7 @@ namespace TrailScale.Domain
                 return 1.0;
         }
 
-        protected double TempMultiplier(Weather tripWeather)
+        private double TempMultiplier(Weather tripWeather)
         {
             if (tripWeather.Temperature == Temperature.SubZero)
                 return .5;
@@ -65,6 +67,16 @@ namespace TrailScale.Domain
             else
                 return .5;
 
+        }
+
+        private double DifficultyMultiplier(Trail triptrail)
+        {
+            if (triptrail.Difficulty == TrailDifficulty.Easy)
+                return 1.25;
+            else if (triptrail.Difficulty == TrailDifficulty.Medium)
+                return 1;
+            else
+                return .75;
         }
 
 
